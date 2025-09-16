@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import CustomError from "../Error/Error";
 import type HTMLTemplate from "../../types/HTMLTemplate";
 import "./Template.css";
+import { useNavigate } from "react-router-dom";
 
 export default function TemplatesList() {
   const [templates, setTemplates] = useState<HTMLTemplate[]>([]);
   const [isLoading, setIsloading] = useState(false);
   const [error, setError] = useState<string | undefined>();
+  const [reloadKey, setReloadKey] = useState(0);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getTemplates() {
@@ -36,7 +40,23 @@ export default function TemplatesList() {
     }
 
     getTemplates();
-  }, []);
+  }, [reloadKey]);
+
+  async function handleDelete(id: string) {
+    try {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/htmltemplate/${id}`, {
+        method: "DELETE",
+      });
+      setReloadKey((prev) => prev + 1);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError(String(err));
+      }
+    }
+    navigate("/");
+  }
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <CustomError message={error} />;
@@ -45,8 +65,20 @@ export default function TemplatesList() {
     <div key={template.id} className="template-item">
       <span className="template-name">{template.name}</span>
       <div className="buttons">
-        <button className="btn edit-btn">Edit</button>
-        <button className="btn delete-btn">Delete</button>
+        <button
+          className="btn edit-btn"
+          onClick={() => {
+            navigate(`edit/${template.id}`);
+          }}
+        >
+          Edit
+        </button>
+        <button
+          className="btn delete-btn"
+          onClick={() => handleDelete(template.id)}
+        >
+          Delete
+        </button>
       </div>
     </div>
   ));

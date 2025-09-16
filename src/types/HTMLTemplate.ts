@@ -1,5 +1,5 @@
 export default interface HTMLTemplate {
-  id?: string;
+  id: string;
   name: string;
   htmlContent: string;
 }
