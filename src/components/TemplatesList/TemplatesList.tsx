@@ -66,6 +66,14 @@ export default function TemplatesList() {
       <span className="template-name">{template.name}</span>
       <div className="buttons">
         <button
+          className="convert-btn"
+          onClick={() => {
+            navigate(`convertor/${template.id}`);
+          }}
+        >
+          Convert to PDf
+        </button>
+        <button
           className="btn edit-btn"
           onClick={() => {
             navigate(`edit/${template.id}`);

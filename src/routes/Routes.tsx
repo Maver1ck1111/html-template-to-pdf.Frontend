@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../components/App/App";
 import TemplatesList from "../components/TemplatesList/TemplatesList";
 import HTMLTemplate from "../components/HTMLTemplate/HTMLTemplate";
+import Convertor from "../components/Convertor/Convertor";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/edit/:id",
         element: <HTMLTemplate />,
+      },
+      {
+        path: "/convertor/:id",
+        element: <Convertor />,
       },
     ],
   },

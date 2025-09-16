@@ -1,0 +1,23 @@
+.template-editor {
+  display: flex;
+  gap: 20px;
+}
+
+.editor-left,
+.editor-right {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.editor-left .form-group {
+  margin-bottom: 10px;
+}
+
+.preview {
+  padding: 10px;
+  background: #f9f9f9;
+  min-height: 200px;
+  border-radius: 4px;
+}
